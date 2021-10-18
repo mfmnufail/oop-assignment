@@ -32,6 +32,18 @@ public class ClassDetailsStoreTest {
         classStore.addStudents(10,"Maths","1234");
         assertThat(newClass.getStudentId().keySet(), containsInAnyOrder(student.getId()));
     }
+
+     @Test
+    public void should_GetStudentReturn_when_StudentIdIsParsed(){
+        StudentStore store = new StudentInMemoryStore();
+        Student student1 = new Student("1234","John","1997.01.01","2021.10.15");
+        Student student2 = new Student("4321","Michael","1997.01.01","2021.10.15");
+        store.addStudent("1234","John","1997.01.01","2021.10.15");
+        store.addStudent("4321","Michael","1997.01.01","2021.10.15");
+        assertThat(store.getStudent("1234"), equalTo(student1));
+        assertThat(store.getStudent("4321"), equalTo(student2));
+    }
+
 	
     @Test
     public void should_StudentAttendanceEmptyUntilAttendToTheSession_when_CheckAttendanceList(){
