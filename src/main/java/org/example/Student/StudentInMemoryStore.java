@@ -21,6 +21,11 @@ public class StudentInMemoryStore implements StudentStore {
         students.add(new Student(id,name,dateOfBirth,joinDate));
     }
 
+    @Override
+    public List<Student> getAllStudents() {
+        return students;
+    }
+
 
 
 }
