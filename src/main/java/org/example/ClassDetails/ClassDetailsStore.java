@@ -17,4 +17,6 @@ public interface ClassDetailsStore {
 
     public Set<String> getSessionName(int grade, String className);
 
+    Map<Integer, List<ClassDetails>> getClassDetails();
+
 }

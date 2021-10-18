@@ -14,6 +14,11 @@ public class ClassInMemoryStore implements ClassDetailsStore{
     }
 
     @Override
+    public Map<Integer, List<ClassDetails>> getClassDetails() {
+        return classDetails;
+    }
+
+    @Override
     public ClassDetails getClassDetails(int grade, String className) {
 
         if (classDetails.containsKey(grade)){
@@ -48,13 +53,10 @@ public class ClassInMemoryStore implements ClassDetailsStore{
         }
 
         if (classDetails.containsKey(grade)){
-            for (List<ClassDetails> s : classDetails.values()){
-                if (s.stream().noneMatch(c -> c.getClassName().equals(className))){
-                    throw new RuntimeException("Class name not exist");
+            for (ClassDetails s : classDetails.get(grade)){
+                if (s.getClassName().equals(className)){
+                s.addStudent(id);
                 }
-
-                ClassDetails foundClass = s.stream().filter(k -> k.getClassName().equals(className)).findFirst().get();
-                foundClass.addStudent(id);
 
             }
         }
@@ -68,13 +70,10 @@ public class ClassInMemoryStore implements ClassDetailsStore{
         }
 
         if (classDetails.containsKey(grade)){
-            for (List<ClassDetails> s : classDetails.values()){
-                if (s.stream().noneMatch(c -> c.getClassName().equals(className))){
-                    throw new RuntimeException("Class name not exist");
+            for (ClassDetails s : classDetails.get(grade)){
+                if (s.getClassName().equals(className)){
+                  s.reserveSession(session);
                 }
-
-                ClassDetails foundClass = s.stream().filter(k -> k.getClassName().equals(className)).findFirst().get();
-                foundClass.reserveSession(session);
 
             }
         }
@@ -87,13 +86,11 @@ public class ClassInMemoryStore implements ClassDetailsStore{
         }
 
         if (classDetails.containsKey(grade)){
-            for (List<ClassDetails> s : classDetails.values()){
-                if (s.stream().noneMatch(c -> c.getClassName().equals(className))){
-                    throw new RuntimeException("Class name not exist");
-                }
+            for (ClassDetails s : classDetails.get(grade)){
+                if (s.getClassName().equals(className)){
 
-                ClassDetails foundClass = s.stream().filter(k -> k.getClassName().equals(className)).findFirst().get();
-               return foundClass.getSessions().keySet();
+               return s.getSessions().keySet();
+                }
 
             }
         }
@@ -108,13 +105,11 @@ public class ClassInMemoryStore implements ClassDetailsStore{
         }
 
         if (classDetails.containsKey(grade)){
-            for (List<ClassDetails> s : classDetails.values()){
-                if (s.stream().noneMatch(c -> c.getClassName().equals(className))){
-                    throw new RuntimeException("Class name not exist");
-                }
+            for (ClassDetails s : classDetails.get(grade)){
+                if (s.getClassName().equals(className)){
 
-                ClassDetails foundClass = s.stream().filter(k -> k.getClassName().equals(className)).findFirst().get();
-                foundClass.markAttendance(session,attendedStudents);
+                s.markAttendance(session,attendedStudents);
+                }
 
             }
         }

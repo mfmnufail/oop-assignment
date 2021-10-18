@@ -36,6 +36,15 @@ public class ClassDetails {
         }
     }
 
+    public void addStudent(String id){
+        if (studentStore != null){
+           Student foundStudent = studentStore.getStudent(id);
+           if (foundStudent != null){
+               studentId.put(id,"");
+           }
+        }
+    }
+
     public Map<String, Session> getSessionsAttendance() {
         return sessionsAttendance;
     }
