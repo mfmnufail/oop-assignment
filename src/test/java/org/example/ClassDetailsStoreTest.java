@@ -22,6 +22,17 @@ public class ClassDetailsStoreTest {
         assertThat(classStore.getClassDetails().get(10), contains(newClass));
     }
 
+    @Test
+    public void should_StoreStudent_when_NewStudentIsParsedToClass(){
+        StudentStore studentStore = new StudentInMemoryStore();
+        ClassDetailsStore classStore = new ClassInMemoryStore(studentStore);
+        Student student = new Student("1234","John","1997.01.01","2021.10.15");
+        studentStore.addStudent("1234","John","1997.01.01","2021.10.15");
+        ClassDetails newClass = new ClassDetails(2021,"Maths","John",studentStore);
+        classStore.addStudents(10,"Maths","1234");
+        assertThat(newClass.getStudentId().keySet(), containsInAnyOrder(student.getId()));
+    }
+
   
 
 
